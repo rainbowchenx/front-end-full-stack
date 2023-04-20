@@ -4,7 +4,7 @@ import requests from "./request";
 // /api/product/getBaseCategoryList   GET  无参数
 export const reqCategoryList=()=>{
     // 返回promise对象
-    return 
+    return requests({url:'/product/getBaseCategoryList',method:'get'})
     // requests({url:'/product/getBaseCategoryList',method:'get'})
     
 }

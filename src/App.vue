@@ -6,7 +6,7 @@
     <!-- home/search显示 -->
     <Footer v-show="$route.meta.show"></Footer>
   </div>
-</template>
+</template> 
 
 <script>
 
