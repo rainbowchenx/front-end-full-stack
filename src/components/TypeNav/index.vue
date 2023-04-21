@@ -2,49 +2,53 @@
   <!-- 商品分类导航 -->
   <div class="type-nav">
     <div class="container">
-      <div @mouseleave="leaveIndex">
+      <div @mouseleave="leaveShow" @mouseenter="enterShow">
         <h2 class="all">全部商品分类</h2>
+        <!-- 过度动画 -->
         <!-- 三级联动 -->
-        <div class="sort">
-          <!-- 事件委派加编程时导航 -->
-          <div class="all-sort-list2" @click="goSearch">
-            <div
-              class="item"
-              v-for="(c1, index) in categoryList"
-              :key="c1.categoryId"
-              :class="{ cur: currentIndex === index }"
-            >
-              <h3 @mouseenter="changeIndex(index)" >
-                <a :data-categoryName="c1.categoryName" :data-category1Id ="c1.categoryId">{{ c1.categoryName }}</a>
-                <!-- <router-link to="/search">{{ c1.categoryName }}</router-link> -->
-              </h3>
-              <!-- 二、三级联动 -->
-              <div class="item-list clearfix" :style="{display: currentIndex==index?'block':'none'}">
-                <div
-                  class="subitem"
-                  v-for="(c2, index) in c1.categoryChild"
-                  :key="c2.categoryId"
-                >
-                  <dl class="fore">
-                    <dt>
-                      <a  :data-categoryName="c2.categoryName" :data-category2Id ="c2.categoryId">{{ c2.categoryName }}</a>
-                      <!-- <router-link to="/search">{{ c2.categoryName }}</router-link> -->
-                    </dt>
-                    <dd>
-                      <em
-                        v-for="(c3, index) in c2.categoryChild"
-                        :key="c3.categoryId"
-                      >
-                        <a  :data-categoryName="c3.categoryName" :data-category3Id ="c3.categoryId">{{ c3.categoryName }}</a>
-                        <!-- <router-link to="/search">{{ c3.categoryName }}</router-link> -->
-                      </em>
-                    </dd>
-                  </dl>
+        <transition name="sort">
+          <div class="sort" v-show="show">
+            <!-- 事件委派加编程时导航 -->
+            <div class="all-sort-list2" @click="goSearch">
+              <div
+                class="item"
+                v-for="(c1, index) in categoryList"
+                :key="c1.categoryId"
+                :class="{ cur: currentIndex === index }"
+              >
+                <h3 @mouseenter="changeIndex(index)" >
+                  <a :data-categoryName="c1.categoryName" :data-category1Id ="c1.categoryId">{{ c1.categoryName }}</a>
+                  <!-- <router-link to="/search">{{ c1.categoryName }}</router-link> -->
+                </h3>
+                <!-- 二、三级联动 -->
+                <div class="item-list clearfix" :style="{display: currentIndex==index?'block':'none'}">
+                  <div
+                    class="subitem"
+                    v-for="(c2, index) in c1.categoryChild"
+                    :key="c2.categoryId"
+                  >
+                    <dl class="fore">
+                      <dt>
+                        <a  :data-categoryName="c2.categoryName" :data-category2Id ="c2.categoryId">{{ c2.categoryName }}</a>
+                        <!-- <router-link to="/search">{{ c2.categoryName }}</router-link> -->
+                      </dt>
+                      <dd>
+                        <em
+                          v-for="(c3, index) in c2.categoryChild"
+                          :key="c3.categoryId"
+                        >
+                          <a  :data-categoryName="c3.categoryName" :data-category3Id ="c3.categoryId">{{ c3.categoryName }}</a>
+                          <!-- <router-link to="/search">{{ c3.categoryName }}</router-link> -->
+                        </em>
+                      </dd>
+                    </dl>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </transition>
+
       </div>
 
       <nav class="nav">
@@ -71,11 +75,17 @@ export default {
   data() {
     return {
       currentIndex: -1, //指示三级联动的最大一级的索引值
+      show:true,
     };
   },
   // 组件挂载完毕，发送请求，数据存储于仓库中
   created() {
-    this.$store.dispatch("categoryList");
+    // this.$store.dispatch("categoryList");移动到app中可以
+    // 组件挂载完毕show属性改变,怕【判断路由
+    if(this.$route.path !== '/home'){
+      this.show =false
+    }
+    
   },
   computed: {
     ...mapState({
@@ -89,8 +99,13 @@ export default {
     changeIndex:throttle(function(index){
       this.currentIndex = index;
     },50),
-    leaveIndex() {
-      this.currentIndex = -1;
+    // 控制鼠标移出后的效果
+    leaveShow() {
+       this.currentIndex = -1;
+      if(this.$route.path !== '/home'){  
+      this.show = false
+      }
+
     },
     goSearch(event){
       // 第一个用于区分是否是a标签，其他的用于区分是否是a标签下的一、二、三级标签
@@ -110,11 +125,22 @@ export default {
           query.category3Id = category3id
 
         }
-        // 整理合并参数
-        location.query=query
+        // 如果路由跳转带有params参数，要仪器带过去
+        if(this.$route.params){
+          // 整理合并参数
+          location.params = this.$route.params
+          location.query=query
         // 路由的跳转
         this.$router.push(location)
+        }
+        
+        
+
       }
+    },
+    // 鼠标移入时展示商品分类列表
+    enterShow(){
+      this.show = true
     }
   },
 };
@@ -240,6 +266,15 @@ export default {
           background-color: skyblue;
         }
       }
+    }
+    .sort-enter{
+      height: 0px;
+    }
+    .sort-enter-to{
+      height: 461px;
+    }
+    .sort-enter-active{
+      transition: all .5s linear;
     }
   }
 }

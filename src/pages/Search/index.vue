@@ -1,9 +1,7 @@
 <template>
   <div>
-      <h3>search</h3>
-  <h3>参数:
-    params:{{$route.params.keyword}}:{{$route.query.keyword}}
-  </h3>
+    <!-- 这是search模块 -->
+    <typeNav></typeNav>
   </div>
 
 </template>

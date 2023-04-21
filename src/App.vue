@@ -20,7 +20,12 @@ export default {
   },
   computed:{
 
+  },
+  created(){
+    // 获取数据
+    this.$store.dispatch("categoryList");
   }
+
 }
 </script>
 
