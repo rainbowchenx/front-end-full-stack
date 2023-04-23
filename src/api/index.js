@@ -13,4 +13,7 @@ export const reqCategoryList=()=>{
 export const reqGetBannerList=()=>{
     return mockRequests.get('/banner');
 }
+export const reqFloorList=()=>{
+    return mockRequests.get('/floor');
+}
 
