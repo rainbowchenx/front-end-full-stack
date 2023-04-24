@@ -41,7 +41,8 @@ const mutations={
         state.floorList = floorList
     }
 }
-const getters={}
+const getters={
+}
 export default ({
     state,
     actions,

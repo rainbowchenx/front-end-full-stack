@@ -13,7 +13,17 @@ export const reqCategoryList=()=>{
 export const reqGetBannerList=()=>{
     return mockRequests.get('/banner');
 }
+// 获取首页下方轮播图数据
 export const reqFloorList=()=>{
     return mockRequests.get('/floor');
+}
+// 获取搜索页面数据/api/list post 有参数，很多参数
+export const reqGetSearchInfo=(params)=>{
+    return requests({
+        url:'/list',
+        method:'post',
+        data:params
+    
+    })
 }
 
