@@ -13,8 +13,11 @@ import store from './store'
 import TypeNav from './components/TypeNav'
 // 全局组件轮播图
 import Carsousel from '@/components/Carousel'
+// 分页器
+import Pagination from '@/components/Pagination'
 Vue.component(TypeNav.name, TypeNav)
 Vue.component(Carsousel.name, Carsousel)
+Vue.component(Pagination.name, Pagination)
 
 new Vue({
   // 注册路由,所有组件都拥有$route和$router

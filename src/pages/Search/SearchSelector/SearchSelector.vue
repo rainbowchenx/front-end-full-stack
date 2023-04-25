@@ -16,11 +16,14 @@
         <a href="javascript:void(0);">更多</a>
       </div>
     </div>
+   
     <div class="type-wrap" v-for="(attr,index) in attrsList" :key="attr.id">
+      <!-- 平台售卖属性 -->
       <div class="fl key">{{attr.attrName}}</div>
       <div class="fl value">
         <ul class="type-list">
-          <li v-for="(attrValue,index) in attr.attrValueList" :key="index">
+          <!-- 响应的属性值 -->
+          <li v-for="(attrValue,index) in attr.attrValueList" :key="index" @click="attrInfo(attr,attrValue)">
             <a>{{ attrValue }}</a>
           </li>
 
@@ -48,6 +51,10 @@ import { mapGetters } from 'vuex';
     // 品牌的事件函数,自定义事件
     tradeMarkHandler(trademark){
       this.$emit('trademarkInfo', trademark)
+    },
+    // 平台售卖属性的回调
+    attrInfo(attr,attrValue){
+      this.$emit("attrInfo",attr,attrValue)
     }
   }
   }
