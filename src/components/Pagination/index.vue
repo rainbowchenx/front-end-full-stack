@@ -1,28 +1,60 @@
 <template>
     <div class="pagination">
-        <button>上一页</button>
-      <button>1</button>
-
+        <button :disabled="pageNo==1" @click="$emit('getPageNo',pageNo-1)">上一页</button>
+        <!-- 上只有start大于1时展示，大于2时展示。。。 -->
+      <button v-if="startNumAndEndNum.start>1" @click="$emit('getPageNo',1)" :class="{active:pageNo==1}">1</button>
+      <button v-if="startNumAndEndNum.start>2">···</button>
+      <!-- 中 展示前2个和后2个 -->
+      <button 
+      v-for="(page,index) in startNumAndEndNum.end" 
+      :key="index" 
+      v-if="page>=startNumAndEndNum.start"
+      @click="$emit('getPageNo',page)"
+      :class="{active:pageNo==page}"
+      >{{ page }}</button>
+      <!-- 下 只有end小于totalpage展示，end和最后一页差距大于2 时展示。。。 -->
       
-      <button>···</button>
-  
-      <button>3</button>
-      <button>4</button>
-      <button>5</button>
-      <button>6</button>
-      <button>7</button>
+      <button v-if="startNumAndEndNum.end<totalPage-1">···</button>
+      <button v-if="startNumAndEndNum.end<totalPage" @click="$emit('getPageNo',totalPage)">{{ totalPage }}</button>
+      <button :disabled="pageNo==totalPage" @click="$emit('getPageNo',pageNo+1)">下一页</button>
       
-      <button>···</button>
-      <button>9</button>
-      <button>下一页</button>
-      
-      <button style="margin-left: 30px">共 60 条</button>
+      <button style="margin-left: 30px" :class="{active:pageNo==totalPage}">共 {{total}} 条</button>
     </div>
   </template>
   
   <script>
     export default {
       name: "Pagination",
+      props:['pageNo','pageSize','total','continues'],
+      computed:{
+        // 一共多少页
+        totalPage(){
+          return Math.ceil(this.total/this.pageSize)
+        },
+        // 连续页码起始和终止位置]
+        startNumAndEndNum(){
+          // 定义两个变量，存储初始和结束值
+          let start=0;
+          let end=0;
+          if(this.continues>this.totalPage){
+            start=1
+            end=this.totalPage
+          }else{
+            start=this.pageNo-parseInt(this.continues/2)
+            end=this.pageNo+parseInt(this.continues/2)
+            if(start < 1){
+              start=1
+              end=this.continues
+            }
+            if(end>this.totalPage){
+              end=this.totalPage
+              start = this.totalPage-this.continues+1
+            }
+          }
+          return {start,end}
+        }
+
+      }
     }
   </script>
   
@@ -54,7 +86,7 @@
   
         &.active {
           cursor: not-allowed;
-          background-color: #409eff;
+          background-color: red;
           color: #fff;
         }
       }

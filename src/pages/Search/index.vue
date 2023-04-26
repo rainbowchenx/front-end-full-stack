@@ -93,7 +93,13 @@
             </ul>
           </div>
           <!-- 分页器 -->
-          <Pagination></Pagination>
+          <Pagination 
+          :pageNo="searchParams.pageNo" 
+          :pageSize="searchParams.pageSize" 
+          :total="total" 
+          :continues="5"
+          @getPageNo = 'getPageNo'
+          ></Pagination>
 
         </div>
       </div>
@@ -103,7 +109,7 @@
 
 <script>
   import SearchSelector from './SearchSelector/SearchSelector'
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapState} from 'vuex';
 
   export default {
     name: 'Search',
@@ -159,7 +165,11 @@
       },
       isDown(){
         return this.searchParams.order.indexOf('desc') != -1
-      }
+      },
+      // 获取页码相关
+      ...mapState({
+        total:state =>state.search.searchList.total
+      })
     },
     methods:{
       // 把请求封装成函数
@@ -226,6 +236,11 @@
           this.searchParams.order = `${one}:${origin[1]}`
         }
         // z记得再次发请求
+        this.getData()
+      },
+      // 自定义事件的回调函数,获取当前页数
+      getPageNo(pageNo){
+        this.searchParams.pageNo = pageNo
         this.getData()
       }
     },
