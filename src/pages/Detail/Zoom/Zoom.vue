@@ -1,17 +1,59 @@
 <template>
   <div class="spec-preview">
-    <img src="../images/s1.png" />
-    <div class="event"></div>
+    <img :src="imgObj.imgUrl" />
+    <div class="event" @mousemove="handler"></div>
     <div class="big">
-      <img src="../images/s1.png" />
+      <img :src="imgObj.imgUrl" ref="big"/>
     </div>
-    <div class="mask"></div>
+    <!-- 蒙版 -->
+    <div class="mask" ref="mask"></div>
   </div>
 </template>
 
 <script>
   export default {
     name: "Zoom",
+    data(){
+      return {
+        currentIndex:0
+      }
+    },
+    props:[
+      "skuImageList"
+    ],
+    computed:{
+      // 优化去错误，拿到图片数据
+      imgObj(){
+        return this.skuImageList[this.currentIndex] || {}
+      }
+    },
+    mounted(){
+      this.$bus.$on('getIndex',(index)=>{
+        // 拿到兄弟传的数据以后修改这里的index，同时将index绑定到上面的imgObj上
+        this.currentIndex=index
+      })
+    },
+    methods:{
+      handler(event){
+        
+        let mask = this.$refs.mask
+        let left=event.offsetX-mask.offsetWidth/2
+        let top=event.offsetY-mask.offsetHeight/2
+        // 约束范围
+        if(left<=0) left=0
+        if(left>=mask.offsetWidth) left=mask.offsetWidth
+        if(top<=0) top=0
+        if(top>=mask.offsetHeight) top=mask.offsetHeight
+        // 同步大图
+        let big=this.$refs.big
+        big.style.left=-2*left+'px'
+        big.style.top = -2*top+'px'
+        // 修改元素的属性值
+        mask.style.left=left+'px'
+        mask.style.top = top+'px'
+
+      }
+    }
   }
 </script>
 
