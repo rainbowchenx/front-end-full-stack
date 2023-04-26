@@ -20,10 +20,10 @@ npm run build
 ```
 
 ### 功能展示
-```
+
 ![image](https://github.com/rainbowchenx/front-end-full-stack/blob/main/picture-forshow/full-page-show.gif)
 ![image](https://github.com/rainbowchenx/front-end-full-stack/blob/main/picture-forshow/pagination.gif)
-```
+
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
