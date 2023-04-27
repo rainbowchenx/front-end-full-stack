@@ -29,8 +29,10 @@ export const reqGetSearchInfo=(params)=>{
 // 获取产品详情信息的接口
 
 export const reqGoodsInfo = (skuId)=>requests({url:`/item/${skuId}`,method:'get'});
-// 添加到购物车
+// 添加到购物车,或者获得修改已有商品的数量
 
 export const reqAddOrUpdateCart = (skuId,skuNum)=>requests({url:`/cart/addToCart/${skuId}/${skuNum}`,method:'post'});
 // 获取购物车的数据
 export const reqCartList = ()=>requests({url:'/cart/cartList',method:'get'});
+// 删除购物车产品的接口\
+export const reqDeleteCartById = (skuId)=>requests({url:`/cart/deleteCart/${skuId}`,method:'delete'});
