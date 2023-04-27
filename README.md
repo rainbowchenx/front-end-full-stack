@@ -23,7 +23,7 @@ npm run build
 
 ![image](https://github.com/rainbowchenx/front-end-full-stack/blob/main/picture-forshow/full-page-show.gif)
 ![image](https://github.com/rainbowchenx/front-end-full-stack/blob/main/picture-forshow/pagination.gif)
-
+![image](https://github.com/rainbowchenx/front-end-full-stack/blob/main/picture-forshow/zoom.gif)
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
