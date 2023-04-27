@@ -8,10 +8,17 @@ const requests = axios.create({
     baseURL:'/api',
     timeout:5000,
 });
+// 在当前模块中引入store
+import store from '@/store';
 // q请求拦截器
 requests.interceptors.request.use((config)=>{
+    console.log(store)
     // config配置对象，header请求头很重要
     nProgress.start()//发起请求前开始进度条
+    if(store.state.detail.uuid_token){
+        // 给请求头添加字段userTempId固定的，不能改
+        config.headers.userTempId = store.state.detail.uuid_token
+    }
     return config
 })
 // 响应拦截器

@@ -1,6 +1,8 @@
 import {reqGoodsInfo,reqAddOrUpdateCart} from "@/api"
+import {getUUID} from "@/utiles/uuid_token"
 const state={
-    goodInfo:{}
+    goodInfo:{},
+    uuid_token:getUUID()
 
 }
 const actions={

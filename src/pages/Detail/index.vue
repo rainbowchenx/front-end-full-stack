@@ -349,11 +349,14 @@
   import Zoom from './Zoom/Zoom'
   import { mapGetters } from 'vuex'
 
+
   export default{
     name: 'Detail',
     data(){
       return {
         skuNum:1,
+        // 游客的临时身份,通过暴露的js模块来生成
+        
       }
     },
     
