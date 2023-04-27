@@ -60,30 +60,41 @@
           </div>
 
           <div class="choose">
+            <!-- 选择商品信息区域 -->
             <div class="chooseArea">
               <div class="choosed"></div>
-              <dl v-for="(spuSaleAttr,index) in spuSaleAttrList" :key="spuSaleAttr.id">
-                <dt class="title">{{spuSaleAttr.saleAttrName}}</dt>
-                <dd 
-                changepirce="0" 
-                :class="{active:spuSaleAttrValue.isChecked==1}" 
-                v-for="(spuSaleAttrValue,index) in spuSaleAttr.spuSaleAttrValueList" 
-                :key="spuSaleAttrValue.id"
-                @click="changeActive(spuSaleAttrValue,spuSaleAttr.spuSaleAttrValueList)"
+              <dl
+                v-for="(saleAttr, index) in spuSaleAttrList"
+                :key="saleAttr.id"
+              >
+                <dt class="title">{{ saleAttr.saleAttrName }}</dt>
+                <!--每一个销售属性的属性值的地方-->
+                <dd
+                  changepirce="0"
+                  :class="{ active: saleAttrValue.isChecked == 1 }"
+                  v-for="(
+                    saleAttrValue, index
+                  ) in saleAttr.spuSaleAttrValueList"
+                  :key="saleAttrValue.id"
+                  @click="
+                    changeChecked(saleAttrValue, saleAttr.spuSaleAttrValueList)
+                  "
                 >
-                {{spuSaleAttrValue.spuSaleAttrValueName}}
-              </dd>
+                  {{ saleAttrValue.saleAttrValueName }}
+                </dd>
               </dl>
 
             </div>
+            <!-- 购物车 -->
             <div class="cartWrap">
               <div class="controls">
-                <input autocomplete="off" class="itxt">
-                <a href="javascript:" class="plus">+</a>
-                <a href="javascript:" class="mins">-</a>
+
+                <input autocomplete="off" class="itxt" v-model="skuNum"  @change="handler">
+                <a  href="javascript:" class="plus" @click="skuNum++">+</a>
+                <a href="javascript:" class="mins" @click="skuNum>1?skuNum--:1">-</a>
               </div>
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <a @click="addOrUpdateCart">加入购物车</a>
               </div>
             </div>
           </div>
@@ -338,11 +349,11 @@
   import Zoom from './Zoom/Zoom'
   import { mapGetters } from 'vuex'
 
-  export default {
+  export default{
     name: 'Detail',
     data(){
       return {
-
+        skuNum:1,
       }
     },
     
@@ -351,7 +362,8 @@
       Zoom
     },
     mounted(){
-       this.$store.dispatch('getGoodInfo',this.$route.params.skuid) 
+       this.$store.dispatch('getGoodInfo',this.$route.params.skuId) 
+       
        
     },
     computed:{
@@ -360,17 +372,53 @@
         return this.skuInfo.skuImageList || []
       }
     },
-    methods:{
-      // 产品售卖属性切换高亮 排他 获取当前点击的和点击所在的列表
-      changeActive(saleAttrValue,attr){
-        // 排他
-        attr.forEach(element => {
-          element.isChecked='0'
+    methods: {
+    changeChecked(saleAttrValue, arr) {
+      console.log(this.skuInfo);
+      arr.forEach((item) => {
+        item.isChecked = "0";
+      });
+      saleAttrValue.isChecked = "1";
+    },
+    //数量的表单元素的change回调
+    handler(e) {
+      //通过event事件对象获取用户输入内容[用户输入的内容一定是字符串类型的数据]
+      let value = e.target.value * 1;
+      //用户输入进来非法情况判断
+      if (isNaN(value) || value < 1) {
+        this.skuNum = 1;
+      } else {
+        //正常情况
+        this.skuNum = parseInt(value);
+      }
+    },
+    // /加入购物车的回调
+    async addOrUpdateCart() {
+      //派发action:携带的载荷，分别商品的id、商品个数
+      //思考底下的这行代码实质做了一个什么事情?
+      //实质就是调用了小仓库里面相应的这个函数->addOrUpdateCart,声明部分加上asyc,这个函数执行的结构一定是Promise
+      //返回结果是一个Promise对象【三种状态:pending、成功、失败】，返回状态到底是什么，取决于这个函数addOrUpdateCart返回结果
+      try {
+        //成功干什么
+        await this.$store.dispatch("addOrUpdateCart", {
+          skuId: this.$route.params.skuId,
+          skuNum: this.skuNum,
         });
-        saleAttrValue.isChecked='1'
+        //路由跳转:携带参数,携带参数一般都是基本类型数据【字符串、数字等等】，引用类型数据白扯【传递过来路由获取不到】！！！
+        //浏览器存储功能，在路由跳转在之前，存储到浏览器中
+        sessionStorage.setItem('SKUINFO',JSON.stringify(this.skuInfo));
+        //路由跳转
+        this.$router.push({
+          path: "/addcartsuccess",
+          query: { skuNum: this.skuNum},
+        });
+      } catch (error) {
+        //失败干什么
+        alert("加入购物车失败");
       }
     },
 
+  }
   }
 </script>
 

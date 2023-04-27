@@ -3,6 +3,8 @@ import Login from '@/pages/Login'
 import Search from '@/pages/Search'
 import Register from '@/pages/Register'
 import Detail from "@/pages/Detail"
+import AddCartSuccess from "@/pages/AddCartSuccess"
+import ShopCart from '@/pages/ShopCart'
 export default[
     {
         
@@ -31,11 +33,30 @@ export default[
         redirect:'/home',
     },
     {
-        path:"/detail/:skuid?",
+        path:"/detail/:skuId?",
         component:Detail,
         meta:{show:true},
         
 
+    },
+    // 购物车组件路由
+    {
+        name:"shopcart",
+        path:"/shopcart",
+        component:ShopCart,
+        meta:{show:true},
+        
+
+    },
+    // 添加购物车成功路由组件
+    {
+        name:"addcartsuccess",
+        path:"/addcartsuccess",
+        component:AddCartSuccess,
+        meta:{show:true},
+        
+
     }
+
 
 ]
