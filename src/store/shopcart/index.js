@@ -28,6 +28,19 @@ const actions={
             return Promise.reject("faile")
         }
 
+    },
+    // 删除所有的选中的购物车
+    // context小仓库
+    deleteAllCheckedCart({dispatch,getters}){
+        // 获取购物车中的全部商品
+        let promiseall =[]
+        getters.cartList.cartInfoList.forEach(element => {
+            let result  = element.isChecked == 1?dispatch('deleteCartListBySkuId',element.skuId):'' ;  
+            promiseall.push(result)
+        });
+        return Promise.all(promiseall)
+
+        
     }
 }
 const mutations={

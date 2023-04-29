@@ -76,7 +76,7 @@
         <span>全选</span>
       </div>
       <div class="option">
-        <a href="#none">删除选中的商品</a>
+        <a @click="deleteAllCheckedCart">删除选中的商品</a>
         <a href="#none">移到我的关注</a>
         <a href="#none">清除下柜商品</a>
       </div>
@@ -165,6 +165,16 @@ export default {
         console.log(e.message)
       }
 
+    },
+    // 删除所有选中的商品,无参数，
+    async deleteAllCheckedCart(){
+      try{
+        await this.$store.dispatch("deleteAllCheckedCart")
+        this.getData()
+      }catch(e){
+        console.log(e.message)
+      }
+      
     }
   },
   computed: {
