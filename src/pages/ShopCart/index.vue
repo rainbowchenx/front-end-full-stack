@@ -23,6 +23,8 @@
               type="checkbox"
               name="chk_list"
               :checked="cart.isChecked == 1"
+              
+              @change = "updateChecked(cart,$event)"
             />
           </li>
           <li class="cart-list-con2">
@@ -45,8 +47,8 @@
               type="text"
               minnum="1"
               class="itxt"
-              :value="cart.skuValue"
-              @click="handler('change', $event.target.value * 1, cart)"
+              :value="cart.skuNum"
+              @input="handler('change', $event.target.value * 1, cart)"
             />
             <a
               href="javascript:void(0)"
@@ -57,7 +59,7 @@
           </li>
           <!-- 小计 -->
           <li class="cart-list-con6">
-            <span class="sum">{{ cart.skuPrice * cart.skuValue }}</span>
+            <span class="sum">{{ cart.skuPrice * cart.skuNum }}</span>
           </li>
           <!-- 总价 -->
           <li class="cart-list-con7">
@@ -153,6 +155,17 @@ export default {
         console.log(error.message);
       }
     },
+    // 修改购物车状态
+   async updateChecked(cart,event){
+      try{
+        let checked = event.target.checked?'1':'0'
+        await this.$store.dispatch('updateCheckedBtId',{skuId:cart.skuId,isChecked:checked})
+        this.getData()
+      }catch(e){
+        console.log(e.message)
+      }
+
+    }
   },
   computed: {
     // 购物车的动态展示

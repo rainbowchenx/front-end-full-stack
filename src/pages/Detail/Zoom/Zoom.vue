@@ -102,7 +102,7 @@
 
       img {
         width: 200%;
-        max-width: 200%;
+        max-width:200%;
         height: 200%;
         position: absolute;
         left: 0;
