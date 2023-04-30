@@ -36,7 +36,7 @@ export default {
   mounted(){
     // 获取floor组件的数据
     this.$store.dispatch("getFloorList") 
-    // 获取用户信息并展示
+    // 获取用户信息并展示,不在这里获取信息了，在路由那里获取，设置全局路由守卫
     this.$store.dispatch('getUserInfo')
   },
   computed:{

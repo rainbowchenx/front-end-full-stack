@@ -9,6 +9,8 @@ import detail from "./detail";
 import shopcart from "./shopcart";
 // 导入登录和注册的残酷
 import user from "./login_register/index"
+// 引入trade信息
+import trade from "./trade";
 
 export default new vuex.Store({
 
@@ -17,6 +19,7 @@ export default new vuex.Store({
         search,
         detail,
         shopcart,
-        user
+        user,
+        trade
     }
 })

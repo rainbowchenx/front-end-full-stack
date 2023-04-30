@@ -5,6 +5,7 @@ import Register from '@/pages/Register'
 import Detail from "@/pages/Detail"
 import AddCartSuccess from "@/pages/AddCartSuccess"
 import ShopCart from '@/pages/ShopCart'
+import Trade from "@/pages/Trade"
 export default[
     {
         
@@ -54,8 +55,13 @@ export default[
         path:"/addcartsuccess",
         component:AddCartSuccess,
         meta:{show:true},
-        
-
+    },
+    // 结算页面路由
+    {
+        name:"trade",
+        path:"/trade",
+        component:Trade,
+        meta:{show:true},
     }
 
 
