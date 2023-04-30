@@ -36,6 +36,8 @@ export default {
   mounted(){
     // 获取floor组件的数据
     this.$store.dispatch("getFloorList") 
+    // 获取用户信息并展示
+    this.$store.dispatch('getUserInfo')
   },
   computed:{
     ...mapState({

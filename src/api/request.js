@@ -12,7 +12,11 @@ const requests = axios.create({
 import store from '@/store';
 // q请求拦截器
 requests.interceptors.request.use((config)=>{
-    console.log(store)
+    // console.log(store)
+    // 判断是否有token并携带
+    if(store.state.user.token){
+        config.headers.token = store.state.user.token
+    }
     // config配置对象，header请求头很重要
     nProgress.start()//发起请求前开始进度条
     if(store.state.detail.uuid_token){

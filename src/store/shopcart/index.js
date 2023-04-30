@@ -38,9 +38,16 @@ const actions={
             let result  = element.isChecked == 1?dispatch('deleteCartListBySkuId',element.skuId):'' ;  
             promiseall.push(result)
         });
+        return Promise.all(promiseall)    
+    },
+    // 全选状态勾选
+    updateAllCartIsChecked({dispatch,state},isChecked){
+        let promiseall = []
+        state.cartList[0].cartInfoList.forEach((item)=>{
+            let res = dispatch('updateCheckedBtId',{skuId:item.skuId,isChecked})
+            promiseall.push(res)
+        })
         return Promise.all(promiseall)
-
-        
     }
 }
 const mutations={

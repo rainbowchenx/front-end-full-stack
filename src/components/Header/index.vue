@@ -5,10 +5,16 @@
       <div class="container">
         <div class="loginList">
           <p>尚品汇欢迎您！</p>
-          <p>
+          <!-- 根据是否登录选择性显示 -->
+          <p v-if="!userName">
             <span>请</span>
             <router-link to="/login">登录</router-link>
             <router-link to="/register" class="register">免费注册</router-link>
+          </p>
+          <!-- 登录以后 -->
+          <p v-else>
+            <a>{{userName}}</a>
+            <a class="register">退出登录</a>
           </p>
         </div>
         <div class="typeList">
@@ -53,6 +59,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   data(){
     return {
@@ -81,6 +89,11 @@ export default {
       this.keyword=''
     })
 
+  },
+  computed:{
+    userName(){
+      return this.$store.state.user.userInfo.name;
+    }
   }
 };
 </script>
