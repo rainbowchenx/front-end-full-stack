@@ -14,7 +14,7 @@
           <!-- 登录以后 -->
           <p v-else>
             <a>{{userName}}</a>
-            <a class="register">退出登录</a>
+            <a class="register" @click="logout">退出登录</a>
           </p>
         </div>
         <div class="typeList">
@@ -81,6 +81,16 @@ export default {
         this.$router.push(location)
       }
 
+    },
+    // 退出登录
+    async logout(){
+      try{
+        await this.$store.dispatch('userLogout')
+        this.$router.push('/home')
+      }catch(e){
+        console.error("登陆失败")
+      }
+      
     }
   },
   mounted(){

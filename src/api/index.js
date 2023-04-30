@@ -46,3 +46,5 @@ export const reqUserRegister = (data)=>requests({url:'/user/passport/register/',
 export const reqUserLogin = (data)=>requests({url:'/user/passport/login/',data:data,method:'post'});
 // 获取登录后的用户信息,带着token向用户要信息,i请求头
 export const reqUserInfo = ()=>requests({url:'/user/passport/auth/getUserInfo',method:'get'});
+// 登出
+export const reqLogout = ()=>requests({url:'/user/passport/logout',method:'get'});
