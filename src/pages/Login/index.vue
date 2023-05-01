@@ -80,7 +80,9 @@
         try{
           const {phone,password} = this;
           (phone && password)&& await this.$store.dispatch("userLogin",{phone,password})
-          this.$router.push('/home')
+          // 路由当中是否由query参数，有就跳到指定位置
+          let toPath = this.$route.query.redirect||'/home'
+          this.$router.push(toPath)
         }catch(e){
           console.log(new Error("登录失败"))
         }

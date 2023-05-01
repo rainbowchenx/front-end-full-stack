@@ -52,8 +52,16 @@ router.beforeEach(async (to,from,next)=>{
             
         }
     }else{
-        // 未登录
-        next()
+        // 未登录的相关处理
+        // 交易相关，支付相关都去不了,个个人中心也去不了
+        let topath = to.path;
+        if (topath.indexOf('/trade')!= -1 || topath.indexOf('/pay')!= -1) {
+            next('/login?redirect='+ topath)
+        }else{
+            next()
+        }
+
+        
     }
 });
 export default router;
