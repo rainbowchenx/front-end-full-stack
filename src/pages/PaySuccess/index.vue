@@ -18,8 +18,27 @@
 </template>
 
 <script>
+
   export default {
     name: 'PaySuccess',
+    // 组件内守护
+    beforeRouteEnter (to, from, next) {
+      // 不能获取组件实例
+      if(from.path=='/pay'){
+        next()
+      }else{
+        next(false)
+      }
+    },
+    // 当前路由改变但是该组件被复用时，如占位参数的改变，foo/1=>foo/2
+    // beforeRouteUpdate (to, from, next) {
+    //   // 不能获取组件实例
+    //   if(from.path=='/pay'){
+    //     next()
+    //   }else{
+    //     next(false)
+    //   }
+    // }
   }
 </script>
 

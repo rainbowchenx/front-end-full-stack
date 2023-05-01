@@ -69,6 +69,16 @@ export default[
         path:"/trade",
         component:Trade,
         meta:{show:true},
+        // 独享路由守卫
+        // 去交易页面必须是从购物车而来
+        beforeEnter: (to, from, next) => {
+            if(from.path == "/shopcart"){
+                next();
+            }else{
+                next(false)//从哪儿来回哪儿去
+
+            }
+        }
     },
     // 支付静态页面
     {
@@ -76,6 +86,13 @@ export default[
         path:"/pay",
         component:Pay,
         meta:{show:true},
+        beforeEnter: (to, from, next) => {
+            if(from.path=="/trade"){
+                next()
+            }else{
+                next(false)
+            }
+        }
     },
     // 支付成功页面
     {

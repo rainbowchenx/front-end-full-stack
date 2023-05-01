@@ -71,7 +71,7 @@
                   <div class="p-img">
                     <!-- 详情的图片 路由跳转带id-->
                     <router-link :to="`/detail/${good.id}`">
-                      <img :src="good.defaultImg" />
+                      <img v-lazy="good.defaultImg" />
                     </router-link>
 
 

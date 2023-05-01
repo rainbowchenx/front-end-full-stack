@@ -20,6 +20,12 @@ import * as API from "@/api";
 import { Button,MessageBox } from 'element-ui'
 // import ElementUI from 'element-ui';
 // Vue.use(ElementUI)
+// 路由懒加载插件
+import VueLazyload from 'vue-lazyload';
+import atm from "@/assets/images/R.gif"
+Vue.use(VueLazyload,{
+  loading:atm
+});
 Vue.component(TypeNav.name, TypeNav)
 Vue.component(Carsousel.name, Carsousel)
 Vue.component(Pagination.name, Pagination)
