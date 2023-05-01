@@ -1,5 +1,6 @@
 <template>
   <div class="pay-main">
+    <!-- <el-button type="primary" icon="el-icon-more">主要按钮</el-button> -->
     <div class="pay-container">
       <div class="checkout-tit">
         <h4 class="tit-txt">
@@ -65,9 +66,7 @@
         <div class="hr"></div>
 
         <div class="submit">
-          <!-- <router-link class="btn" to="/paysuccess">立即支付</router-link>
-           -->
-           <a class="btn">立即支付</a>
+           <a class="btn" @click="payNow">立即支付</a>
         </div>
         <div class="otherpay">
           <div class="step-tit">
@@ -100,14 +99,26 @@
     this.getPayInfo()
       
     },
-    method:{
+    methods:{
       async getPayInfo(){
         let result =  await this.$API.reqPayInfo(this.orderId)
         if(result.code==200){
           this.payInfo = result.data
         }
-      }
-    }
+      },
+      // 支付窗口的回调
+      payNow() {
+        this.$alert('<strong>这是 <i>HTML</i> 片段</strong>', 'HTML 片段', {
+          dangerouslyUseHTMLString: true,
+          center:true,
+          showCancelButton:true,
+          cancelButtonText:"支付遇见问题",
+          confirmButtonText:"已经支付成功",
+          showClose:false,
+          
+        });
+      },
+  }
   }
 </script>
 

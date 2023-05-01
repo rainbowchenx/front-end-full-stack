@@ -17,9 +17,16 @@ import Carsousel from '@/components/Carousel'
 import Pagination from '@/components/Pagination'
 // 统一接收文件夹中所有的api
 import * as API from "@/api";
+import { Button,MessageBox } from 'element-ui'
+// import ElementUI from 'element-ui';
+// Vue.use(ElementUI)
 Vue.component(TypeNav.name, TypeNav)
 Vue.component(Carsousel.name, Carsousel)
 Vue.component(Pagination.name, Pagination)
+Vue.component(Button.name, Button)
+// 支付页面弹窗
+Vue.prototype.$msgbox = MessageBox
+Vue.prototype.$alert = MessageBox.alert
 
 new Vue({
   // 注册路由,所有组件都拥有$route和$router
@@ -29,6 +36,6 @@ new Vue({
   // 配置全局事件总线
   beforeCreate(){
     Vue.prototype.$bus = this;
-    Vue.prototype.$API = API
+    Vue.prototype.$API = API;
   }
 }).$mount('#app')
