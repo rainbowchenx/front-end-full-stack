@@ -15,6 +15,8 @@ import TypeNav from './components/TypeNav'
 import Carsousel from '@/components/Carousel'
 // 分页器
 import Pagination from '@/components/Pagination'
+// 统一接收文件夹中所有的api
+import * as API from "@/api";
 Vue.component(TypeNav.name, TypeNav)
 Vue.component(Carsousel.name, Carsousel)
 Vue.component(Pagination.name, Pagination)
@@ -27,5 +29,6 @@ new Vue({
   // 配置全局事件总线
   beforeCreate(){
     Vue.prototype.$bus = this;
+    Vue.prototype.$API = API
   }
 }).$mount('#app')
