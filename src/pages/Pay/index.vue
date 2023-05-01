@@ -83,11 +83,16 @@
 </template>
 
 <script>
+import QRCode from "qrcode"
   export default {
     name: 'Pay',
     data() {
       return {
-        payInfo:{}
+        payInfo:{},
+        // 定时器
+        timer:null,
+        // 支付成功的状态码和保存
+        code:""
       }
     },
     computed:{
@@ -107,16 +112,56 @@
         }
       },
       // 支付窗口的回调
-      payNow() {
-        this.$alert('<strong>这是 <i>HTML</i> 片段</strong>', 'HTML 片段', {
+      async payNow() {
+        // 生成二维码地址
+        let url = await QRCode.toDataURL(this.payInfo.codeUrl)
+        this.$alert(`<img src=${url} />`, '请你微信支付', {
           dangerouslyUseHTMLString: true,
           center:true,
           showCancelButton:true,
           cancelButtonText:"支付遇见问题",
           confirmButtonText:"已经支付成功",
           showClose:false,
-          
+          // 关闭弹出框的配置
+          beforeClose:(type,instance,done)=>{
+            if(type=="cancel"){
+              alert("请练习管理员")
+              clearInterval(this.timer)
+              this.timer=null
+              done()
+            }else{
+              // 判断是否真的支付完成
+              // if(this.code==200){
+                  clearInterval(this.timer)
+                  this.timer=null
+                  done()
+                   this.$router.push('/paysuccess');
+              // }
+            }
+          }
         });
+        // 发请求，长轮询
+        if(!this.timer){
+          this.timer = setInterval(async ()=>{
+            // 发请求获取用户支付的
+           let result = await this.$API.reqPayState(this.orderId)
+           if(result.code=200){
+            // 清除定时器
+            clearInterval(this.timer)
+            this.timer=null
+            // 保存支付成功返回的code
+            this.code = result.code
+            // 关闭弹窗
+            this.$msgbox.close();
+            // 跳转到下一页
+            this.$router.push('/paysuccess');
+
+
+           }else{
+
+           }
+          },1000)
+        }
       },
   }
   }

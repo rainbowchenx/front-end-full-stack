@@ -7,6 +7,7 @@ import AddCartSuccess from "@/pages/AddCartSuccess"
 import ShopCart from '@/pages/ShopCart'
 import Trade from "@/pages/Trade"
 import Pay from "@/pages/Pay"
+import PaySuccess from "@/pages/PaySuccess"
 export default[
     {
         
@@ -70,7 +71,14 @@ export default[
         path:"/pay",
         component:Pay,
         meta:{show:true},
-    }
+    },
+        // 支付成功页面
+        {
+            name:"paysuccess",
+            path:"/paysuccess",
+            component:PaySuccess,
+            meta:{show:true},
+        }
 
 
 ]
