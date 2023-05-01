@@ -34,6 +34,11 @@ Vue.component(Button.name, Button)
 Vue.prototype.$msgbox = MessageBox
 Vue.prototype.$alert = MessageBox.alert
 
+// 自定义插件
+import Myplugin from "@/plugins/myPlugins"
+// 调用时候自动install
+Vue.use(Myplugin)
+
 new Vue({
   // 注册路由,所有组件都拥有$route和$router
   store,
