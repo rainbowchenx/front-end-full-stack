@@ -6,6 +6,7 @@ import Detail from "@/pages/Detail"
 import AddCartSuccess from "@/pages/AddCartSuccess"
 import ShopCart from '@/pages/ShopCart'
 import Trade from "@/pages/Trade"
+import Pay from "@/pages/Pay"
 export default[
     {
         
@@ -61,6 +62,13 @@ export default[
         name:"trade",
         path:"/trade",
         component:Trade,
+        meta:{show:true},
+    },
+    // 支付静态页面
+    {
+        name:"pay",
+        path:"/pay",
+        component:Pay,
         meta:{show:true},
     }
 

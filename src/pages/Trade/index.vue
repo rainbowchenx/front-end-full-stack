@@ -3,30 +3,15 @@
     <h3 class="title">填写并核对订单信息</h3>
     <div class="content">
       <h5 class="receive">收件人信息</h5>
-      <div class="address clearFix">
-        <span class="username selected">张三</span>
-        <p>
-          <span class="s1">北京市昌平区宏福科技园综合楼6层</span>
-          <span class="s2">15010658793</span>
-          <span class="s3">默认地址</span>
+      <div class="address clearFix" v-for="(address,index) in addressInfo" :key="address.id">
+        <span class="username " :class="{selected:address.isDefault==1}">{{address.consignee}}</span>
+        <p @click="changeDefault(address,addressInfo)">
+          <span class="s1">{{address.fullAddress}}</span>
+          <span class="s2">{{address.phoneNum}}</span>
+          <span class="s3" v-show="address.isDefault==1">默认地址</span>
         </p>
       </div>
-      <div class="address clearFix">
-        <span class="username selected">李四</span>
-        <p>
-          <span class="s1">北京市昌平区宏福科技园综合楼6层</span>
-          <span class="s2">13590909098</span>
-          <span class="s3">默认地址</span>
-        </p>
-      </div>
-      <div class="address clearFix">
-        <span class="username selected">王五</span>
-        <p>
-          <span class="s1">北京市昌平区宏福科技园综合楼6层</span>
-          <span class="s2">18012340987</span>
-          <span class="s3">默认地址</span>
-        </p>
-      </div>
+
       <div class="line"></div>
       <h5 class="pay">支付方式</h5>
       <div class="address clearFix">
@@ -46,40 +31,25 @@
       <div class="detail">
         <h5>商品清单</h5>
         <!-- 商品清单 -->
-        <ul class="list clearFix">
+        <ul class="list clearFix" v-for="(order,index) in orderInfo.detailArrayList" :key="order.skuId">
+
           <li>
-            <img src="./images/goods.png" alt="">
+            <img :src="order.imgUrl" alt="" style="width:100px;height:100px">
           </li>
           <li>
-            <p>
-              Apple iPhone 6s (A1700) 64G 玫瑰金色 移动联通电信4G手机硅胶透明防摔软壳 本色系列</p>
+            <p>{{order.skuName}}</p>
             <h4>7天无理由退货</h4>
           </li>
           <li>
-            <h3>￥5399.00</h3>
+            <h3>￥{{order.orderPrice}}</h3>
           </li>
-          <li>X1</li>
-          <li>有货</li>
-        </ul>
-        <ul class="list clearFix">
-          <li>
-            <img src="./images/goods.png" alt="">
-          </li>
-          <li>
-            <p>
-              Apple iPhone 6s (A1700) 64G 玫瑰金色 移动联通电信4G手机硅胶透明防摔软壳 本色系列</p>
-            <h4>7天无理由退货</h4>
-          </li>
-          <li>
-            <h3>￥5399.00</h3>
-          </li>
-          <li>X1</li>
+          <li>X{{order.skuNum}}</li>
           <li>有货</li>
         </ul>
       </div>
       <div class="bbs">
         <h5>买家留言：</h5>
-        <textarea placeholder="建议留言前先与商家沟通确认" class="remarks-cont"></textarea>
+        <textarea placeholder="建议留言前先与商家沟通确认" class="remarks-cont" v-model="message"></textarea>
 
       </div>
       <div class="line"></div>
@@ -92,8 +62,8 @@
     <div class="money clearFix">
       <ul>
         <li>
-          <b><i>1</i>件商品，总商品金额</b>
-          <span>¥5399.00</span>
+          <b><i>{{orderInfo.totalNum}}</i>件商品，总商品金额</b>
+          <span>¥{{orderInfo.totalAmount}}</span>
         </li>
         <li>
           <b>返现：</b>
@@ -106,12 +76,12 @@
       </ul>
     </div>
     <div class="trade">
-      <div class="price">应付金额:　<span>¥5399.00</span></div>
+      <div class="price">应付金额:　<span>¥{{orderInfo.totalAmount}}</span></div>
       <div class="receiveInfo">
         寄送至:
-        <span>北京市昌平区宏福科技园综合楼6层</span>
-        收货人：<span>张三</span>
-        <span>15010658793</span>
+        <span>{{userDefaultAddress.fullAddress}}</span>
+        收货人：<span>{{userDefaultAddress.consignee}}</span>
+        <span>{{userDefaultAddress.phoneNum}}</span>
       </div>
     </div>
     <div class="sub clearFix">
@@ -121,15 +91,40 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
   export default {
     name: 'Trade',
+    data() {
+      return {
+        // 收集卖家的留言信息
+        message:''
+      }
+    },
     methods:{
-    
+      // 点击切换默认地址
+      changeDefault(address,addressInfo){
+        addressInfo.forEach(element => {
+          element.isDefault=0;
+          address.isDefault=1;
+        });
+      }
     },
     mounted(){
       this.$store.dispatch('getUserAddress')
       this.$store.dispatch('getOrderInfo')
       
+    },
+    computed:{
+      ...mapState({
+        addressInfo:state=>state.trade.address,
+        orderInfo:state=>state.trade.orderInfo
+      }),
+      // 将来提交订单默认最终选中的地址
+      userDefaultAddress(){
+        return this.addressInfo.find(item=>item.isDefault==1)||{};
+      },
+
     }
   }
 </script>
