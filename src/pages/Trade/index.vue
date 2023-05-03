@@ -108,8 +108,8 @@ import { mapState } from 'vuex'
       // 点击切换默认地址
       changeDefault(address,addressInfo){
         addressInfo.forEach(element => {
-          element.isDefault=0;
-          address.isDefault=1;
+          element.isDefault='0';
+          address.isDefault='1';
         });
       },
       // 提交订单,this.$api

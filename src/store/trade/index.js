@@ -10,13 +10,14 @@ const actions={
     async getUserAddress({commit}){
         let result = await reqAddressInfo();
         if(result.code==200){
-            commit('GETUSERADDRESS')
+            commit('GETUSERADDRESS',result.data)
         }
     },
+    // 获取商品清单
     async getOrderInfo({commit}){
         let result = await reqOrderInfo();
         if(result.code==200){
-            commit('GETORDERINFO')
+            commit('GETORDERINFO',result.data)
         }
     },
     
