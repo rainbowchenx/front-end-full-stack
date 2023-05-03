@@ -1,38 +1,40 @@
-import Home from '@/pages/Home'
-import Login from '@/pages/Login'
-import Search from '@/pages/Search'
-import Register from '@/pages/Register'
-import Detail from "@/pages/Detail"
-import AddCartSuccess from "@/pages/AddCartSuccess"
-import ShopCart from '@/pages/ShopCart'
-import Trade from "@/pages/Trade"
-import Pay from "@/pages/Pay"
-import PaySuccess from "@/pages/PaySuccess"
-import Center from "@/pages/Center"
+// 使用路由懒加载直接动态导入
+// import Home from '@/pages/Home'
+// import Login from '@/pages/Login'
+// import Search from '@/pages/Search'
+// import Register from '@/pages/Register'
+// import Detail from "@/pages/Detail"
+// import AddCartSuccess from "@/pages/AddCartSuccess"
+// import ShopCart from '@/pages/ShopCart'
+// import Trade from "@/pages/Trade"
+// import Pay from "@/pages/Pay"
+// import PaySuccess from "@/pages/PaySuccess"
+// import Center from "@/pages/Center"
 
-// 引入二级路由组件
-import MyOrder from "@/pages/Center/myOrder"
-import GroupOrder from "@/pages/Center/groupOrder"
+// // 引入二级路由组件
+// import MyOrder from "@/pages/Center/myOrder"
+// import GroupOrder from "@/pages/Center/groupOrder"
 export default[
     {
         
         path:'/home',
-        component:Home,
+        component:()=>import("@/pages/Home"),
         meta:{show:true},
     },
     {
         path:'/login',
-        component:Login,
+        // component:Login,//使用路由懒加载替换
+        component:()=>import("@/pages/Login"),
         meta:{show:false},
     },
     {
         path:'/register',
-        component:Register,
+        component:()=>import("@/pages/Register"),
         meta:{show:false},
     },
     {
         path:'/search/:keyword?',
-        component:Search,
+        component:()=>import("@/pages/Search"),
         meta:{show:true},
         name:"search"
     },
@@ -42,7 +44,7 @@ export default[
     },
     {
         path:"/detail/:skuId?",
-        component:Detail,
+        component:()=>import("@/pages/Detail"),
         meta:{show:true},
         
 
@@ -51,7 +53,7 @@ export default[
     {
         name:"shopcart",
         path:"/shopcart",
-        component:ShopCart,
+        component:()=>import("@/pages/ShopCart"),
         meta:{show:true},
         
 
@@ -60,14 +62,14 @@ export default[
     {
         name:"addcartsuccess",
         path:"/addcartsuccess",
-        component:AddCartSuccess,
+        component:()=>import("@/pages/AddCartSuccess"),
         meta:{show:true},
     },
     // 结算页面路由
     {
         name:"trade",
         path:"/trade",
-        component:Trade,
+        component:()=>import("@/pages/Trade"),
         meta:{show:true},
         // 独享路由守卫
         // 去交易页面必须是从购物车而来
@@ -84,7 +86,7 @@ export default[
     {
         name:"pay",
         path:"/pay",
-        component:Pay,
+        component:()=>import("@/pages/Pay"),
         meta:{show:true},
         beforeEnter: (to, from, next) => {
             if(from.path=="/trade"){
@@ -98,24 +100,24 @@ export default[
     {
         name:"paysuccess",
         path:"/paysuccess",
-        component:PaySuccess,
+        component:()=>import("@/pages/PaySuccess"),
         meta:{show:true},
     },
     // 个人中心路由
     {
         name:"center",
         path:"/center",
-        component:Center,
+        component:()=>import("@/pages/Center"),
         meta:{show:true},
         // 二级路由
         children:[
             {
                 path:"myorder",
-                component:MyOrder
+                component:()=>import("@/pages/Center/myOrder"),
             },
             {
                 path:"grouporder",
-                component:GroupOrder
+                component:()=>import("@/pages/Center/groupOrder"),
 
             },
             {
