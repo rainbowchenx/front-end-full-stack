@@ -6,14 +6,14 @@
         <div class="loginform">
           <ul class="tab clearFix">
             <li>
-              <a href="##" style="border-right: 0;">扫描登录</a>
+              <a href="##" style="border-right: 0;" :class="isCurrent?'current':null" @click="changeCur">扫描登录</a>
             </li>
             <li>
-              <a href="##" class="current">账户登录</a>
+              <a href="##" :class="isCurrent?null:'current'" @click="changeCur">账户登录</a>
             </li>
           </ul>
-
-          <div class="content">
+          <!-- 控制账户登录页面的显示 -->
+          <div class="content" v-show="!isCurrent">
             <form>
               <div class="input-text clearFix">
                 <span></span>
@@ -43,6 +43,14 @@
               <router-link class="register" to="/register">立即注册</router-link>
             </div>
           </div>
+          <!-- 控制扫描等登录页面的显示 -->
+          <div class="content" v-show="isCurrent">
+            <div class="QRcodeWrapper">
+              <div ref="qrCodeUrl"></div>
+                <!-- <QRcode></QRcode> -->
+
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -66,12 +74,17 @@
 </template>
 
 <script>
+import QRcode from "@/pages/Login/QRcode/index.vue"
+import QRCode from 'qrcodejs2';
   export default {
     name: 'Login',
+    // components:{QRcode},
     data() {
       return {
         phone:'',
-        password:''
+        password:'',
+        // 控制扫描登陆和账户登录的显示
+        isCurrent:false,
       }
     },
     methods:{
@@ -87,6 +100,22 @@
           console.log(new Error("登录失败"))
         }
 
+      },
+      // 控制是扫描登陆还是账户登录
+      changeCur(){
+        this.isCurrent = !this.isCurrent
+        if(this.isCurrent){
+          this.$refs.qrCodeUrl.innerHTML=''
+          let qrcode1 = new QRCode(this.$refs.qrCodeUrl,{
+            text:"https://www.baidu.com/",
+            width:200,
+            height:200,
+            colorDark:"#000000",
+            colorLight:"#ffffff",
+            correctLevel:QRCode.CorrectLevel.H
+          })
+         this.qrcode =  qrcode1  
+        } 
       }
     }
   }
@@ -151,6 +180,19 @@
           border: 1px solid #ddd;
           border-top: none;
           padding: 18px;
+          .QRcodeWrapper{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            &>div{
+              padding: 20px;
+              border: 20px solid lightgray;
+              border-radius: 12%;
+            }
+          }
+
 
           form {
             margin: 15px 0 18px 0;
