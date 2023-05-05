@@ -11,16 +11,12 @@
         <div class="right">
           <div class="news">
             <h4>
-              <em class="fl">尚品汇快报</em>
+              <em class="fl">每日新闻</em>
               <span class="fr tip">更多 ></span>
             </h4>
             <div class="clearix"></div>
             <ul class="news-list unstyled">
-              <li><span class="bold">[特惠]</span>备战开学季 全民半价购数码</li>
-              <li><span class="bold">[公告]</span>备战开学季 全民半价购数码</li>
-              <li><span class="bold">[特惠]</span>备战开学季 全民半价购数码</li>
-              <li><span class="bold">[公告]</span>备战开学季 全民半价购数码</li>
-              <li><span class="bold">[特惠]</span>备战开学季 全民半价购数码</li>
+              <li v-for="(news,index) in newList" :key="news.docid"><span class="bold">[热搜 {{index+1}}]</span>{{news.title.slice(0,10)}}...</li>
             </ul>
           </div>
           <ul class="lifeservices">
@@ -91,10 +87,14 @@ export default {
     // 获取轮播图数据
     this.$store.dispatch('getBannerList');
     // new swiper实例，不可以，因为加载数据为异步，结构未完整
+    // 获得新闻news
+    this.$store.dispatch("getNewsList")
+    // console.log(this.$store.state.home.newList)
   },
   computed:{
     ...mapState({
-      bannerList:state=>state.home.bannerList
+      bannerList:state=>state.home.bannerList,
+      newList:state=>state.home.newList
     })
   },
 };

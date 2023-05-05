@@ -1,6 +1,7 @@
 // 所有api接口的统一管理
 import requests from "./request";
 import mockRequests from './mockAjax'; 
+
 // 三级联动的接口
 // /api/product/getBaseCategoryList   GET  无参数
 export const reqCategoryList=()=>{
@@ -16,6 +17,10 @@ export const reqGetBannerList=()=>{
 // 获取首页下方轮播图数据
 export const reqFloorList=()=>{
     return mockRequests.get('/floor');
+}
+// 获取新闻数据
+export const reqNewsList=()=>{
+    return mockRequests.get('/news');
 }
 // 获取搜索页面数据/api/list post 有参数，很多参数
 export const reqGetSearchInfo=(params)=>{
@@ -60,3 +65,4 @@ export const reqPayInfo = (orderId)=>requests({url:`/payment/weixin/createNative
 export const reqPayState = (orderId)=>requests({url:`/payment/weixin/queryPayStatus/${orderId}`,method:'get'});
 // 获取我的订单列表
 export const reqMyOrderList = (page,limit)=>requests({url:`/order/auth/${page}/${limit}`,method:'get'});
+

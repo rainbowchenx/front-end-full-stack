@@ -1,13 +1,14 @@
 import Vue from "vue";
 import vuex  from "vuex";
 Vue.use(vuex)
-import {reqCategoryList,reqGetBannerList,reqFloorList} from '@/api'
+import {reqCategoryList,reqGetBannerList,reqFloorList,reqNewsList} from '@/api'
 
 
 const state={
     categoryList:[],
     bannerList:[],
-    floorList:[]
+    floorList:[],
+    newList:{}
 }
 const actions={
    async categoryList({commit}){
@@ -27,6 +28,13 @@ const actions={
     if(result.code===200){
         commit("GETFLOORLIST",result.data)
      }
+   },
+//    获得新闻
+   async getNewsList({commit}){
+    let result = await reqNewsList();
+    if(result.code===200){
+        commit("GETNEWSLIST",result.data.data)
+     }
    }
     
 }
@@ -39,6 +47,9 @@ const mutations={
     },
     GETFLOORLIST(state,floorList){
         state.floorList = floorList
+    },
+    GETNEWSLIST(state,newList){
+        state.newList=newList
     }
 }
 const getters={

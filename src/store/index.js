@@ -11,6 +11,8 @@ import shopcart from "./shopcart";
 import user from "./login_register/index"
 // 引入trade信息
 import trade from "./trade";
+// 引入新闻信息
+
 
 export default new vuex.Store({
 
@@ -20,6 +22,6 @@ export default new vuex.Store({
         detail,
         shopcart,
         user,
-        trade
+        trade,
     }
 })
