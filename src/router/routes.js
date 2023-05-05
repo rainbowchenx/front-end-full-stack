@@ -125,7 +125,14 @@ export default[
                 redirect:'/center/myorder'
             }
         ]
-    }
+    },
+    // 新闻路由
+    {
+        
+        path:'/news',
+        component:()=>import("@/pages/News"),
+        meta:{show:true},
+    },
 
 
 ]

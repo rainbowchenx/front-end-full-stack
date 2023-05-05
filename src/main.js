@@ -18,8 +18,8 @@ import Pagination from '@/components/Pagination'
 // 统一接收文件夹中所有的api
 import * as API from "@/api";
 import { Button,MessageBox } from 'element-ui'
-// import ElementUI from 'element-ui';
-// Vue.use(ElementUI)
+import ElementUI from 'element-ui';
+Vue.use(ElementUI)
 // 图片懒加载插件
 import VueLazyload from 'vue-lazyload';
 import atm from "@/assets/images/R.gif"
