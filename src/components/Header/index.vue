@@ -14,7 +14,7 @@
           <!-- 登录以后 -->
           <p v-else>
             <a>{{userName}}</a>
-            <a class="register" @click="logout">退出登录</a>
+            <a class="register" @click="logout" >退出登录</a>
           </p>
         </div>
         <div class="typeList">
@@ -131,6 +131,7 @@ export default {
             border-left: 1px solid #b3aeae;
             padding: 0 5px;
             margin-left: 5px;
+            cursor: pointer;
           }
         }
       }
