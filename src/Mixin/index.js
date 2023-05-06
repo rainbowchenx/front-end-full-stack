@@ -11,9 +11,11 @@ export const mixins = {
         
     },
     mounted() {
-        
+        console.log(this)
     },
     methods:{
-        
+        goHome(){
+            this.$router.push("/home")
+        }
     }
 }

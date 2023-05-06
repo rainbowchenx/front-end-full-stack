@@ -3,8 +3,11 @@
     <!-- 注册内容 -->
     <div class="register">
       <h3>注册新用户
-        <span class="go">我有账号，去 <a href="login.html" target="_blank">登陆</a>
-        </span>
+        <span class="go">我有账号，去 <a href="login.html" target="_blank">登陆</a> </span>
+        <br>
+        <el-button type = 'danger' @click="goHome" class="go" >
+          主页面
+        </el-button>
       </h3>
       <div class="content">
         <label>手机号:</label>
@@ -91,8 +94,10 @@
 </template>
 
 <script>
+import { mixins } from '@/Mixin'
   export default {
     name: 'Register',
+    mixins:[mixins],
     data(){
       return {
         // 收集表单数据
@@ -255,5 +260,15 @@
         }
       }
     }
+  }
+  .go{
+    cursor: pointer;
+    border: 1px,solid white;
+  }
+  .go:hover{
+    color: rgb(225,37,27);
+  }
+  el-button{
+    margin-right: 0px;
   }
 </style>
