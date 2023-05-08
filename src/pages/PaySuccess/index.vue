@@ -10,6 +10,7 @@
         <p class="button">
           <router-link class="btn-look" to="/center">查看订单</router-link>
           <router-link class="btn-goshop" to="/">继续购物</router-link>
+          <Rating :value="1" />
         </p>
       </div>
     </div>
@@ -18,9 +19,12 @@
 </template>
 
 <script>
-
+import Rating from "./rate/index.vue"
   export default {
     name: 'PaySuccess',
+    components:{
+      Rating,
+    },
     // 组件内守护
     beforeRouteEnter (to, from, next) {
       // 不能获取组件实例
