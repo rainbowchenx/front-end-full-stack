@@ -4,7 +4,7 @@
     <div class="top">
       <div class="container">
         <div class="loginList">
-          <p>尚品汇欢迎您！</p>
+          <p>欢迎进入采购平台</p>
           <!-- 根据是否登录选择性显示 -->
           <p v-if="!userName">
             <span>请</span>
@@ -20,20 +20,19 @@
         <div class="typeList">
           <router-link to="/center/myorder">我的订单</router-link>
           <router-link to="/shopcart">我的购物车</router-link>
-          <a href="###">我的尚品汇</a>
-          <a href="###">尚品汇会员</a>
+          <a href="###">个人中心</a>
           <a href="###">企业采购</a>
-          <a href="###">关注尚品汇</a>
+          <a href="###">微信关注</a>
           <a href="###">合作招商</a>
-          <a href="###">商家后台</a>
+          <a href="###">平台信息</a>
         </div>
       </div>
     </div>
     <!--头部第二行 搜索区域-->
     <div class="bottom">
       <h1 class="logoArea">
-        <router-link to="/home" class="logo" title="尚品汇">
-          <img src="./images/logo.png" alt="" />
+        <router-link to="/home" class="logo" title="自研发硬件采购平台">
+          <img src="./images/图片1.png" alt=""  style="width: 100px;margin-top: 10px;margin-bottom: 10px;"/>
         </router-link>
       </h1>
       <div class="searchArea">

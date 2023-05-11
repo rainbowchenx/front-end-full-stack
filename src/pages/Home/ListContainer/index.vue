@@ -70,7 +70,7 @@
             </li>
           </ul>
           <div class="ads">
-            <img src="./images/ad1.png" />
+            <img src="./images/ad1.jpg" width="250px" height="100px"/>
           </div>
         </div>
       </div>
@@ -94,7 +94,7 @@ export default {
   computed:{
     ...mapState({
       bannerList:state=>state.home.bannerList,
-      newList:state=>state.home.newList
+      newList:state=>state.home.newList.slice(0,4)
     })
   },
 };

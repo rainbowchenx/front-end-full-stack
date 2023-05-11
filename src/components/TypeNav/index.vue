@@ -90,7 +90,7 @@ export default {
   computed: {
     ...mapState({
       categoryList: (state) => {
-        return state.home.categoryList;
+        return state.home.categoryList.slice(0,16);
       },
     }),
   },
