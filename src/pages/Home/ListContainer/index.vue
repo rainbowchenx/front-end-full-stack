@@ -94,7 +94,7 @@ export default {
   computed:{
     ...mapState({
       bannerList:state=>state.home.bannerList,
-      newList:state=>state.home.newList.slice(0,4)
+      newList:state=>state.home.newList.slice(0,7)
     })
   },
 };
@@ -106,7 +106,7 @@ export default {
   margin: 0 auto;
 
   .sortList {
-    height: 464px;
+    height: 530px;
     padding-left: 210px;
 
     .center {

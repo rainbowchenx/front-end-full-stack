@@ -35,8 +35,7 @@
             <div class="tab-info">
               <div class="info-title">
                 <a href="#"
-                  >【官网价直降1100】Apple iPhone 8 Plus 256GB 银色
-                  移动联通电信4G手机</a
+                  >A⁢pple iPhone 13 (A2634) 128GB 星光色 支持移动联通电信5G 双卡双待手机</a
                 >
               </div>
               <p class="info-price">定金：¥100.00</p>
@@ -45,7 +44,7 @@
           <div class="img-item">
             <p class="tab-pic">
               <a href="#">
-                <img src="./images/1.jpg" />
+                <img src="./images/4.jpg" />
               </a>
             </p>
             <div class="tab-info">
@@ -61,7 +60,7 @@
           <div class="img-item">
             <p class="tab-pic">
               <a href="#">
-                <img src="./images/1.jpg" />
+                <img src="./images/3.jpg" />
               </a>
             </p>
             <div class="tab-info">
@@ -77,7 +76,7 @@
           <div class="img-item">
             <p class="tab-pic">
               <a href="#">
-                <img src="./images/1.jpg" />
+                <img src="./images/2.jpg" />
               </a>
             </p>
             <div class="tab-info">

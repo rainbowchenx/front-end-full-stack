@@ -6,7 +6,7 @@
         v-for="(carousel, index) in list"
         :key="carousel.id"
       >
-        <img :src="carousel.imgUrl" />
+        <img :src="carousel.imgUrl" class="imgg" />
       </div>
     </div>
     <!-- 如果需要分页器 -->
@@ -50,5 +50,10 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less" scoped>
+.imgg{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 </style>

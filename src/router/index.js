@@ -24,44 +24,44 @@ let router = new VueRouter({
     }
 })
 // 全局前置首位
-// router.beforeEach(async (to,from,next)=>{
-//     // /用户登陆后才会有token
-//     let token = store.state.user.token
-//     let name = store.state.user.userInfo
-//     if(token){
-//         // 无法去login页面
-//         if(to.path == '/login'){
-//             next('/home')
-//         }else{
-//             // 登录了，去的不是login,确保有用户信息，没有i的话派发捞信息
-//             if(name){
-//               next()  
-//             }else{
-//                 // 派发信息存储用户信息并存储
-//                 try {
+router.beforeEach(async (to,from,next)=>{
+    // /用户登陆后才会有token
+    let token = store.state.user.token
+    let name = store.state.user.userInfo
+    if(token){
+        // 无法去login页面
+        if(to.path == '/login'){
+            next('/home')
+        }else{
+            // 登录了，去的不是login,确保有用户信息，没有i的话派发捞信息
+            if(name){
+              next()  
+            }else{
+                // 派发信息存储用户信息并存储
+                try {
 
-//                     await store.dispatch('getUserInfo')
-//                     next()
-//                 } catch (error) {
-//                     // token失效了，要清除token，指向login
-//                     await store.dispatch('userLogout');
-//                     next('/login')
-//                 }
+                    await store.dispatch('getUserInfo')
+                    next()
+                } catch (error) {
+                    // token失效了，要清除token，指向login
+                    await store.dispatch('userLogout');
+                    next('/login')
+                }
                
-//             }
+            }
             
-//         }
-//     }else{
-//         // 未登录的相关处理
-//         // 交易相关，支付相关都去不了,个个人中心也去不了
-//         let topath = to.path;
-//         if (topath.indexOf('/trade')!= -1 || topath.indexOf('/pay')!= -1) {
-//             next('/login?redirect='+ topath)
-//         }else{
-//             next()
-//         }
+        }
+    }else{
+        // 未登录的相关处理
+        // 交易相关，支付相关都去不了,个个人中心也去不了
+        let topath = to.path;
+        if (topath.indexOf('/trade')!= -1 || topath.indexOf('/pay')!= -1) {
+            next('/login?redirect='+ topath)
+        }else{
+            next()
+        }
 
         
-//     }
-// });
+    }
+});
 export default router;

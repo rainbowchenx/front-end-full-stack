@@ -190,7 +190,7 @@ export default {
       .all-sort-list2 {
         .item {
           h3 {
-            line-height: 30px;
+            line-height: 33px;
             font-size: 14px;
             font-weight: 400;
             overflow: hidden;
